@@ -1,122 +1,77 @@
-# global_earthquakes_arpan_shah
 # 🌍 Earthquake Analytics API
 
-A comprehensive RESTful API built using **Node.js**, **Express.js**, and **MongoDB** for managing, analyzing, and monitoring earthquake data. The API supports advanced filtering, sorting, pagination, analytics, authentication, and secure access using JWT.
-
-## 🚀 Features
-
-- CRUD Operations for Earthquake Records
-- Bulk Create, Update & Delete
-- Advanced Filtering & Search
-- Pagination & Sorting
-- Earthquake Analytics & Statistics
-- JWT Authentication & Authorization
-- Protected Admin Routes
-- Request Validation
-- Error Handling Middleware
-- Rate Limiting & Security
-- Country, Location & Magnitude-Based Analysis
-
-## 🛠️ Tech Stack
-
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- JWT Authentication
-- Express Validator
-- Express Rate Limit
-- bcrypt.js
-- dotenv
-
-## 📂 Dataset
-
-USGS Earthquake Dataset
-
-Dataset Link:
-https://drive.google.com/file/d/1-zEv7-1RRqpBuPSJ2812MILuELv9KHKx/view
-
-## 📌 API Capabilities
-
-### Earthquake Management
-- Create Earthquake Records
-- Update Existing Records
-- Delete Records
-- Fetch Single/Multiple Records
-
-### Advanced Query Features
-- Filter by Country
-- Filter by Magnitude
-- Filter by Depth
-- Filter by Status
-- Filter by Seismic Network
-- Search by Keywords
-- Sorting & Pagination
-
-### Analytics
-- Highest Magnitude Earthquakes
-- Deepest Earthquakes
-- Monthly Trends
-- Country-wise Distribution
-- Magnitude Analysis
-- Depth Analysis
-- Recent Seismic Activity
-
-### Statistics
-- Total Earthquake Count
-- Average Magnitude
-- Average Depth
-- Country Statistics
-- Network Statistics
-- Reviewed Records Count
-
-### Security
-- JWT Authentication
-- Protected Routes
-- Role-Based Access Control
-- Password Encryption
-- Rate Limiting
-
-## ⚙️ Installation
-
-```bash
-git clone <repository-url>
-
-cd earthquake-analytics-api
-
-npm install
+A comprehensive RESTful API built using **Node.js**, **Express.js**, and **MongoDB** for managing, analyzing, and monitoring global earthquake data. Supports advanced filtering, sorting, pagination, full-text search, analytics with aggregation pipelines, JWT authentication, and RBAC.
 
 ---
 
-## Project Architecture
+## 🚀 Features
 
-```
-global_earthquakes_arpan_shah/
-├── Backend/             # Node.js + Express REST API
-│   ├── config/          # DB connection, auto-seeding
-│   ├── controllers/     # Route request handlers
-│   ├── middlewares/     # Auth, logging, validation, rate-limiting
-│   ├── models/          # Mongoose schemas
-│   ├── routes/          # Express routers
-│   ├── services/        # Business logic
-│   ├── utils/           # Helper functions
-│   └── scripts/         # Admin & seeding scripts
-└── Frontend/            # React + Vite + Redux
-    └── src/
-        ├── components/  # Reusable UI components
-        ├── pages/       # Page-level components
-        ├── routes/      # Route definitions
-        ├── services/    # Axios API service layer
-        ├── store/       # Redux Toolkit slices & store
-        └── utils/       # Client-side utilities
-```
+- ✅ **Full CRUD** – Create, Read, Update, Delete earthquake records
+- ✅ **Bulk Operations** – Bulk Create / Update / Delete
+- ✅ **Advanced Filtering** – By country, place, magnitude, depth, status, network, magType
+- ✅ **Sorting** – By any field (magnitude, depth, time, gap, rms, etc.)
+- ✅ **Pagination** – Page/limit on every list endpoint
+- ✅ **Full-Text Search** – Keyword search across multiple fields
+- ✅ **Analytics** – MongoDB aggregation pipelines for country, network, magnitude, depth, monthly analysis
+- ✅ **Statistics** – Count, averages, distributions
+- ✅ **JWT Authentication** – Register, login, access/refresh token flow
+- ✅ **RBAC** – Admin and user roles with protected routes
+- ✅ **Rate Limiting** – Per-endpoint rate limiting
+- ✅ **Request Validation** – Input validation with express-validator
+- ✅ **Error Handling** – Global error handler with consistent responses
+- ✅ **Soft Delete** – Records flagged as deleted, not permanently removed
+- ✅ **Database Seeding** – Auto-seed from JSON dataset
+- ✅ **HEAD & OPTIONS** – Full HTTP method support
 
-## Quick Start
+---
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| Node.js | Runtime environment |
+| Express.js | Web framework |
+| MongoDB | Database |
+| Mongoose | ODM for MongoDB |
+| JWT (jsonwebtoken) | Authentication |
+| bcryptjs | Password hashing |
+| express-validator | Input validation |
+| express-rate-limit | API rate limiting |
+| helmet | HTTP security headers |
+| cors | Cross-origin resource sharing |
+| morgan | HTTP request logging |
+| dotenv | Environment variables |
+
+---
+
+## 📂 Dataset
+
+**USGS Global Earthquake Dataset**
+
+Dataset Link: https://drive.google.com/file/d/1-zEv7-1RRqpBuPSJ2812MILuELv9KHKx/view
+
+Supported Formats:
+- USGS GeoJSON FeatureCollection
+- Flat JSON array (CSV-converted)
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1. Clone the Repository
 
 ```bash
-# 1. Setup Backend
-cd Backend && cp .env.example .env && npm install && npm run dev
-
-# 2. Setup Frontend
-cd Frontend && cp .env.example .env && npm install && npm run dev
+git clone <repository-url>
+cd global_earthquakes_arpan_shah
 ```
+
+### 2. Install Dependencies
+
+```bash
+cd Backend
+npm install
+```
+
+### 3. Configure Environment Variables
+
+
