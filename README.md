@@ -75,3 +75,39 @@ npm install
 ### 3. Configure Environment Variables
 
 
+npm install
+
+---
+
+## Project Architecture
+
+```
+global_earthquakes_arpan_shah/
+├── Backend/             # Node.js + Express REST API
+│   ├── config/          # DB connection, auto-seeding
+│   ├── controllers/     # Route request handlers
+│   ├── middlewares/     # Auth, logging, validation, rate-limiting
+│   ├── models/          # Mongoose schemas
+│   ├── routes/          # Express routers
+│   ├── services/        # Business logic
+│   ├── utils/           # Helper functions
+│   └── scripts/         # Admin & seeding scripts
+└── Frontend/            # React + Vite + Redux
+    └── src/
+        ├── components/  # Reusable UI components
+        ├── pages/       # Page-level components
+        ├── routes/      # Route definitions
+        ├── services/    # Axios API service layer
+        ├── store/       # Redux Toolkit slices & store
+        └── utils/       # Client-side utilities
+```
+
+## Quick Start
+
+```bash
+# 1. Setup Backend
+cd Backend && cp .env.example .env && npm install && npm run dev
+
+# 2. Setup Frontend
+cd Frontend && cp .env.example .env && npm install && npm run dev
+```
