@@ -3,6 +3,12 @@ const { sendUnauthorized, sendForbidden } = require('../utils/response.util');
 const User = require('../models/User.model');
 const asyncHandler = require('../utils/asyncHandler.util');
 
+// Fail-fast: ensure JWT_SECRET is configured at startup
+if (!process.env.JWT_SECRET) {
+  console.error('❌ FATAL: JWT_SECRET environment variable is not set. Authentication will fail.');
+  process.exit(1);
+}
+
 /**
  * JWT Authentication Middleware
  * Verifies JWT token from Authorization header and attaches user to req
@@ -68,4 +74,16 @@ const optionalAuth = asyncHandler(async (req, res, next) => {
   next();
 });
 
-module.exports = { protect, optionalAuth };
+/**
+ * Admin Role Guard Middleware
+ * Must be used AFTER protect middleware
+ * Blocks access if the authenticated user is not an admin
+ */
+const isAdmin = (req, res, next) => {
+  if (req.user && req.user.role === 'admin') {
+    return next();
+  }
+  return sendForbidden(res, 'Admin access required. You do not have permission to perform this action.');
+};
+
+module.exports = { protect, optionalAuth, isAdmin };

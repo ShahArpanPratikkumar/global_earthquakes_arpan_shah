@@ -3,7 +3,7 @@ const router = express.Router();
 const { protect } = require('../middlewares/auth.middleware');
 const { validateCreateEarthquake, validateUpdateEarthquake } = require('../middlewares/validate.middleware');
 const asyncHandler = require('../utils/asyncHandler.util');
-const { sendSuccess, sendNotFound } = require('../utils/response.util');
+const { sendSuccess, sendNotFound, sendCreated } = require('../utils/response.util');
 const eqService = require('../services/earthquake.service');
 
 // All protected routes require JWT auth
@@ -12,7 +12,7 @@ router.use(protect);
 // Protected add earthquake record
 router.post('/earthquakes', validateCreateEarthquake, asyncHandler(async (req, res) => {
   const eq = await eqService.createEarthquake(req.body);
-  return res.status(201).json({ success: true, message: 'Protected: Earthquake created', data: eq });
+  return sendCreated(res, eq, 'Protected: Earthquake created');
 }));
 
 // Protected update earthquake record

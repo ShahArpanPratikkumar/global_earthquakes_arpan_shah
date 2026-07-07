@@ -4,6 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 
+const path = require('path');
 const connectDB = require('./config/db');
 const logger = require('./middlewares/logger.middleware');
 const requestTime = require('./middlewares/requestTime.middleware');
@@ -26,7 +27,8 @@ connectDB();
 const app = express();
 
 // Serve local generated images from artifacts folder
-app.use('/local-images', express.static('C:/Users/shahp/.gemini/antigravity-ide/brain/d017d907-07ab-41e9-a645-38238061593f'));
+const localImagesPath = process.env.LOCAL_IMAGES_PATH || path.join(__dirname, 'artifacts');
+app.use('/local-images', express.static(localImagesPath));
 
 // ─── SECURITY MIDDLEWARE ──────────────────────────────────────────────────────
 app.use(helmet());
