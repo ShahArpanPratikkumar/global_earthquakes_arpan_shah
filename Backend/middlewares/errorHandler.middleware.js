@@ -1,9 +1,10 @@
 /**
  * Global Error Handler Middleware
  * Catches all errors passed via next(error) and sends consistent responses
+ * Handles Mongoose, JWT, Express Validator, and generic HTTP errors
  */
 const errorHandler = (err, req, res, next) => {
-  let statusCode = err.statusCode || 500;
+  let statusCode = err.statusCode || err.status || 500;
   let message = err.message || 'Internal Server Error';
 
   // Mongoose Validation Error
@@ -23,7 +24,7 @@ const errorHandler = (err, req, res, next) => {
   // Mongoose Duplicate Key Error
   if (err.code === 11000) {
     statusCode = 409;
-    const field = Object.keys(err.keyPattern)[0];
+    const field = Object.keys(err.keyPattern || {})[0] || 'field';
     message = `Duplicate value for field: ${field}. This ${field} already exists.`;
   }
 
@@ -31,6 +32,12 @@ const errorHandler = (err, req, res, next) => {
   if (err.name === 'CastError') {
     statusCode = 400;
     message = `Invalid value for field: ${err.path}`;
+  }
+
+  // MongoDB Network / Connection Errors
+  if (err.name === 'MongoNetworkError' || err.name === 'MongoServerError') {
+    statusCode = 503;
+    message = 'Database connection error. Please try again later.';
   }
 
   // JWT Errors
@@ -44,7 +51,7 @@ const errorHandler = (err, req, res, next) => {
     message = 'Token has expired. Please login again.';
   }
 
-  // Express Validator Errors
+  // Express JSON parse error
   if (err.type === 'entity.parse.failed') {
     statusCode = 400;
     message = 'Invalid JSON payload. Please check your request body.';
@@ -60,7 +67,7 @@ const errorHandler = (err, req, res, next) => {
     response.stack = err.stack;
   }
 
-  console.error(`❌ Error [${statusCode}]: ${message}`);
+  console.error(`❌ Error [${statusCode}] ${req.method} ${req.originalUrl} — ${message}`);
   res.status(statusCode).json(response);
 };
 
@@ -75,3 +82,4 @@ const notFound = (req, res, next) => {
 };
 
 module.exports = { errorHandler, notFound };
+
