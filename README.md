@@ -85,3 +85,55 @@ git clone <repository-url>
 cd earthquake-analytics-api
 
 npm install
+
+---
+
+## Project Architecture
+
+```
+global_earthquakes_arpan_shah/
+├── Backend/                  # Node.js + Express REST API
+│   ├── config/               # DB connection, auto-seeding
+│   ├── constants/            # HTTP codes, messages, limits
+│   ├── controllers/          # Route request handlers
+│   ├── middlewares/          # Auth, logging, validation, rate-limiting
+│   ├── models/               # Mongoose schemas (User, Earthquake)
+│   ├── routes/               # Express routers
+│   ├── scripts/              # Admin and seeding scripts
+│   ├── services/             # Business logic layer
+│   └── utils/                # Helper functions
+└── Frontend/                 # React 18 + Vite + Redux Toolkit
+    └── src/
+        ├── components/       # Reusable UI components
+        │   ├── charts/       # Recharts visualizations
+        │   ├── forms/        # Form components
+        │   ├── layout/       # Layout (Navbar, Sidebar, Footer)
+        │   ├── tables/       # Data tables
+        │   └── ui/           # Generic UI primitives
+        ├── constants/        # App-wide constant definitions
+        ├── hooks/            # Custom React hooks
+        ├── pages/            # Page-level route components
+        ├── routes/           # Route configuration
+        ├── services/         # Axios API service layer
+        ├── store/            # Redux Toolkit store and slices
+        └── utils/            # Client-side utility functions
+```
+
+## Quick Start
+
+```bash
+# Backend
+cd Backend && cp .env.example .env && npm install && npm run dev
+
+# Frontend
+cd Frontend && cp .env.example .env && npm install && npm run dev
+```
+
+## Tech Stack
+
+| Layer      | Technology |
+|------------|------------|
+| Frontend   | React 18, Vite, Redux Toolkit, Tailwind CSS, Recharts |
+| Backend    | Node.js, Express, MongoDB, Mongoose |
+| Auth       | JWT (JSON Web Tokens), bcrypt |
+| API Client | Axios with interceptors |
